@@ -1,0 +1,11 @@
+--- a/math_service.py
++++ b/math_service.py
+@@ -6,6 +6,8 @@
+     if window_size <= 0:
+         return []
+     averages = []
++    if len(data) < window_size:
++        return []
+     # Kasıtlı Hata: data boşken veya boyutu window_size'dan küçükken patlar
+     window_sum = sum(data[i] for i in range(window_size))
+     averages.append(window_sum / window_size)

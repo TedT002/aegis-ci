@@ -1,0 +1,53 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Testing & Coverage
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/
+
+# Temporary and sandbox artifacts
+.aegis_*.patch
+change.patch
+*.patch.tmp
+
+# IDEs & OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+
+# Dahili notlar / agent prompt dosyaları (public repoda görünmemeli)
+ANTIGRAVITY_PROMPT.txt
+amac.md
+proje.md
+.antigravity/
+
+# Claude Code yerel ayarları
+.claude/
+
+# Build artefaktları
+UNKNOWN.egg-info/

@@ -1,0 +1,75 @@
+{
+  "verified": true,
+  "iterations": 2,
+  "triage": {
+    "root_cause": "IndexError in `calculate_moving_average()` at math_service.py:10 while executing `window_sum = sum(data[i] for i in range(window_size))` (list index out of range): a sequence is indexed beyond its length; the function lacks a boundary check on input size.",
+    "faulty_files": [
+      "math_service.py"
+    ],
+    "suspected_functions": [
+      "calculate_moving_average"
+    ],
+    "error_type": "IndexError",
+    "error_message": "list index out of range",
+    "faulty_line": 10,
+    "faulty_code": "window_sum = sum(data[i] for i in range(window_size))",
+    "failing_tests": [
+      "tests/test_math.py::test_empty"
+    ],
+    "source": "heuristic"
+  },
+  "reproduction_proven": true,
+  "failing_inputs": [
+    {
+      "data": [],
+      "window_size": 1
+    },
+    {
+      "data": [],
+      "window_size": 2
+    },
+    {
+      "data": [],
+      "window_size": 3
+    },
+    {
+      "data": [],
+      "window_size": 5
+    },
+    {
+      "data": [
+        1.0
+      ],
+      "window_size": 2
+    },
+    {
+      "data": [
+        1.0,
+        2.0
+      ],
+      "window_size": 3
+    }
+  ],
+  "patch": {
+    "target_file": "math_service.py",
+    "unified_diff": "--- a/math_service.py\n+++ b/math_service.py\n@@ -6,6 +6,8 @@\n     if window_size <= 0:\n         return []\n     averages = []\n+    if len(data) < window_size:\n+        return []\n     # Kasıtlı Hata: data boşken veya boyutu window_size'dan küçükken patlar\n     window_sum = sum(data[i] for i in range(window_size))\n     averages.append(window_sum / window_size)\n",
+    "strategy": "guard: if len(data) < window_size: return []",
+    "source": "heuristic"
+  },
+  "history": [
+    {
+      "iteration": 1,
+      "strategy": "guard: if not data: return []",
+      "stage": "test_execution",
+      "exit_code": 1,
+      "success": false
+    },
+    {
+      "iteration": 2,
+      "strategy": "guard: if len(data) < window_size: return []",
+      "stage": "test_execution",
+      "exit_code": 0,
+      "success": true
+    }
+  ]
+}
